@@ -45,7 +45,38 @@ ADK_APP_NAME=agent_name
 
 ### Suggested Questions
 
-You can customize the suggested questions that appear on the welcome screen by editing the `public/suggested-questions.json` file. Each question should have a `title`, a `question`, and an `icon` from the [lucide-react](https://lucide.dev/) library.
+You can customize the suggested questions that appear on the welcome screen by editing the `public/suggested-questions.json` file. This file contains a JSON array of question objects. Each object must have the following properties:
+
+- `title`: A short, descriptive title for the question.
+- `question`: The full question to be sent to the agent.
+- `icon`: The name of an icon from the [lucide-react](https://lucide.dev/) library to be displayed next to the question.
+
+Here is an example of the `public/suggested-questions.json` file format:
+
+```json
+[
+  {
+    "title": "Get Started",
+    "question": "Hello! How can you help me today?",
+    "icon": "MessageSquare"
+  },
+  {
+    "title": "My Capabilities",
+    "question": "What are your capabilities?",
+    "icon": "Bot"
+  },
+  {
+    "title": "Explain a concept",
+    "question": "Can you explain what a Large Language Model is?",
+    "icon": "Sparkles"
+  },
+  {
+    "title": "Draft an email",
+    "question": "Help me draft an email to my team about the new project.",
+    "icon": "Send"
+  }
+]
+```
 
 ## Getting Started
 
@@ -104,9 +135,13 @@ This project is licensed under the Apache License 2.0. See the `LICENSE` file fo
 
 ## Authentication
 
+This application does not manage user authentication. It is a public-facing application by default. If you need to restrict access when deploying to Google Cloud Run or GKE, it is recommended to use [Identity-Aware Proxy (IAP)](https://cloud.google.com/iap) to secure your application.
+
+### Service-to-Service Authentication
+
 This application does not manage any authentication to the ADK Agent. This means that the Service Account used by the Cloud Run service hosting this frontend must have the right permissions to access the remote ADK Agent.
 
-### Cloud Run to Cloud Run
+#### Cloud Run to Cloud Run
 
 If you are deploying both the frontend and the ADK agent as Cloud Run services, you can follow these steps to set up authentication:
 
