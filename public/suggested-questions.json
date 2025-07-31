@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Get Started",
+    "question": "Hello! How can you help me today?",
+    "icon": "MessageSquare"
+  },
+  {
+    "title": "My Capabilities",
+    "question": "What are your capabilities?",
+    "icon": "Bot"
+  },
+  {
+    "title": "Explain a concept",
+    "question": "Can you explain what a Large Language Model is?",
+    "icon": "Sparkles"
+  },
+  {
+    "title": "Draft an email",
+    "question": "Help me draft an email to my team about the new project.",
+    "icon": "Send"
+  }
+]

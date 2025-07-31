@@ -1,0 +1,41 @@
+steps:
+  # Build the container image
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA",
+        ".",
+      ]
+
+  # Push the container image to Artifact Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA"]
+
+  # Deploy container image to Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      [
+        "run",
+        "deploy",
+        "$_SERVICE_NAME",
+        "--image",
+        "$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA",
+        "--region",
+        "$_DEPLOY_REGION",
+        "--platform",
+        "managed",
+        "--allow-unauthenticated",
+        "--set-env-vars=ADK_SERVER_ENDPOINT=${_ADK_SERVER_ENDPOINT}",
+        "--set-env-vars=ADK_APP_NAME=${_ADK_APP_NAME}",
+        "--set-env-vars=NEXT_PUBLIC_APP_TITLE=${_NEXT_PUBLIC_APP_TITLE}",
+        "--set-env-vars=NEXT_PUBLIC_LOGO_PATH=${_NEXT_PUBLIC_LOGO_PATH}",
+      ]
+
+images:
+  - "$_GCR_HOSTNAME/$PROJECT_ID/$_SERVICE_NAME:$COMMIT_SHA"
+
+options:
+  logging: CLOUD_LOGGING_ONLY
