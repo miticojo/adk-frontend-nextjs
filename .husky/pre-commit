@@ -2,4 +2,4 @@
 # husky v9+ does not require the line below
 # . "$(dirname "$0")/_/husky.sh"
 
-npm run test
+npm run build

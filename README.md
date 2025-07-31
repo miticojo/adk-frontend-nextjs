@@ -11,6 +11,10 @@ This is a Next.js application that provides a chatbot user interface for interac
 - **Suggested Questions:** Provide users with a set of pre-filled questions to get them started.
 - **Easy Deployment:** Deploy the application to Google Cloud Run using the provided Cloud Build configuration.
 
+## Screenshot
+
+![ADK Agent Frontend Screenshot](screenshot.png)
+
 ## Configuration
 
 Create a `.env` file in the root of the project and add the following variables.
@@ -36,7 +40,7 @@ These variables are used on the server and should not be exposed to the browser.
 ADK_SERVER_ENDPOINT=http://127.0.0.1:8000
 
 # The name of the ADK application
-ADK_APP_NAME=ce_agent
+ADK_APP_NAME=agent_name
 ```
 
 ### Suggested Questions
@@ -69,19 +73,17 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Pre-push Hook
+## Git Hooks
 
-This project uses [husky](https://typicode.github.io/husky/) to run a pre-push hook that builds the application to ensure that no broken code is pushed to the repository. The hook is configured in the `.husky/pre-push` file.
+This project uses [husky](https://typicode.github.io/husky/) to manage Git hooks.
 
-If you have tests in your application, you can add them to the pre-push hook by editing the `.husky/pre-push` file:
+### Pre-commit
 
-```bash
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+A `pre-commit` hook is configured to run `npm run build` before each commit. This ensures that the project builds successfully and prevents committing broken code.
 
-npm run build
-npm run test
-```
+### Pre-push
+
+A `pre-push` hook is configured to run `npm run test` before pushing to the repository. This ensures that all tests pass before sharing your code.
 
 ## Learn More
 

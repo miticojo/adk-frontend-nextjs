@@ -43,6 +43,7 @@ export default function Chat() {
   const [suggestedQuestions, setSuggestedQuestions] = useState<
     SuggestedQuestion[]
   >([]);
+  const [isBackendError, setIsBackendError] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -147,6 +148,7 @@ export default function Chat() {
       return newSessionId;
     } catch (error) {
       console.error("Error creating new session:", error);
+      setIsBackendError(true);
       // Fallback to local-only session if backend fails
       const newUserId = `user-${Date.now()}`;
       const newSessionId = `session-${Date.now()}`;
@@ -280,6 +282,14 @@ export default function Chat() {
 
       {/* Main chat area */}
       <div className="flex-1 flex flex-col min-w-0">
+        {isBackendError && (
+          <div className="bg-red-500 text-white p-2 text-center">
+            <p>
+              Could not connect to the ADK backend. Please make sure it is
+              running.
+            </p>
+          </div>
+        )}
         {/* Header */}
         <header className="bg-card/80 backdrop-blur-sm border-b border-border px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-3">

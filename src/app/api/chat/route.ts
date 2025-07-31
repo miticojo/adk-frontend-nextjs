@@ -108,6 +108,9 @@ export async function GET() {
     return NextResponse.json({ userId, sessionId });
   } catch (error) {
     console.error("Error creating session:", error);
-    return new NextResponse("Internal Server Error", { status: 500 });
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
