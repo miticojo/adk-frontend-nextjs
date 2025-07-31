@@ -23,7 +23,9 @@ interface SuggestedQuestion {
 }
 
 const getIcon = (name: string) => {
-  const Icon = (LucideIcons as any)[name];
+  const Icon = (LucideIcons as unknown as { [key: string]: React.ElementType })[
+    name
+  ];
   if (Icon) {
     return <Icon className="w-4 h-4 text-blue-500" />;
   }
@@ -366,8 +368,8 @@ export default function Chat() {
                     Welcome to AI Chat
                   </h2>
                   <p className="text-muted-foreground max-w-md">
-                    Start a conversation by typing a message below. I'm here to
-                    help with any questions or tasks you have.
+                    Start a conversation by typing a message below. I&apos;m
+                    here to help with any questions or tasks you have.
                   </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md w-full">
