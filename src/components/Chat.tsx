@@ -44,11 +44,17 @@ export default function Chat() {
     SuggestedQuestion[]
   >([]);
   const [isBackendError, setIsBackendError] = useState(false);
+  const [maxLength, setMaxLength] = useState(1000);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Initialize first session on mount
   useEffect(() => {
+    const maxLengthValue = parseInt(
+      process.env.NEXT_PUBLIC_MAX_INPUT_LENGTH || "100000",
+      10
+    );
+    setMaxLength(maxLengthValue);
     const initializeSession = async () => {
       if (!sessionId) {
         await createNewSession();
@@ -464,12 +470,12 @@ export default function Chat() {
                   {input.length > 0 && (
                     <span
                       className={
-                        input.length > 1000
+                        input.length > maxLength
                           ? "text-red-500"
                           : "text-muted-foreground"
                       }
                     >
-                      {input.length}/1000
+                      {input.length}/{maxLength}
                     </span>
                   )}
                 </div>

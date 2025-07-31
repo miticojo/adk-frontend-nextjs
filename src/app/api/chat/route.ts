@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const API_BASE_URL = process.env.ADK_SERVER_ENDPOINT || "http://127.0.0.1:8000";
 const APP_NAME = process.env.ADK_APP_NAME || "ce_agent";
+const MAX_INPUT_LENGTH = parseInt(process.env.MAX_INPUT_LENGTH || "100000", 10);
 
 interface AdkEvent {
   author: string;
@@ -15,9 +16,12 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { userId, sessionId, message, history } = body;
-
     if (!userId || !sessionId || !message) {
       return new NextResponse("Missing required fields", { status: 400 });
+    }
+
+    if (message.length > MAX_INPUT_LENGTH) {
+      return new NextResponse("Input exceeds maximum length", { status: 413 });
     }
 
     const requestBody = {

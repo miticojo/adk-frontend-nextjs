@@ -11,6 +11,11 @@ This is a Next.js application that provides a chatbot user interface for interac
 - **Suggested Questions:** Provide users with a set of pre-filled questions to get them started.
 - **Easy Deployment:** Deploy the application to Google Cloud Run using the provided Cloud Build configuration.
 
+### Ancillary Features
+
+- **Chat Export:** Export your chat sessions to JSON, Markdown, or plain text for easy sharing and archiving.
+- **Theme Toggling:** Switch between light and dark mode to match your preferences.
+
 ## Screenshot
 
 ![ADK Agent Frontend Screenshot](screenshot.png)
@@ -29,6 +34,9 @@ NEXT_PUBLIC_APP_TITLE="ADK Agent"
 
 # The path to the application logo
 NEXT_PUBLIC_LOGO_PATH=/vercel.svg
+
+# The maximum length of the input message in characters
+NEXT_PUBLIC_MAX_INPUT_LENGTH=100000
 ```
 
 ### Backend Configuration
@@ -41,6 +49,9 @@ ADK_SERVER_ENDPOINT=http://127.0.0.1:8000
 
 # The name of the ADK application
 ADK_APP_NAME=agent_name
+
+# The maximum length of the input message in characters
+MAX_INPUT_LENGTH=100000
 ```
 
 ### Suggested Questions
