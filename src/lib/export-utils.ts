@@ -1,4 +1,3 @@
-import { Message } from "./api";
 import { ChatSession } from "./session-storage";
 
 export class ExportUtils {
@@ -34,7 +33,7 @@ export class ExportUtils {
     markdown += `**Updated:** ${session.updatedAt.toLocaleString()}\n\n`;
     markdown += `---\n\n`;
 
-    session.messages.forEach((message, index) => {
+    session.messages.forEach((message) => {
       const role = message.role === "user" ? "**You**" : "**Assistant**";
       const timestamp = new Date().toLocaleTimeString();
 
@@ -64,7 +63,7 @@ export class ExportUtils {
     text += `Updated: ${session.updatedAt.toLocaleString()}\n`;
     text += "=".repeat(50) + "\n\n";
 
-    session.messages.forEach((message, index) => {
+    session.messages.forEach((message) => {
       const role = message.role === "user" ? "You" : "Assistant";
       text += `[${role}]: ${message.content}\n\n`;
     });

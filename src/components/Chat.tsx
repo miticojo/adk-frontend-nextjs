@@ -11,25 +11,10 @@ import { ExportUtils } from "@/lib/export-utils";
 import { SessionSidebar } from "@/components/session-sidebar";
 import { MessageItem } from "@/components/message-item";
 import { Message, createSession } from "@/lib/api";
-import {
-  Send,
-  Plus,
-  Download,
-  Menu,
-  Sparkles,
-  MessageSquare,
-  Bot,
-} from "lucide-react";
+import { Send, Plus, Download, Menu, Sparkles } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
-
-interface ChatSession {
-  id: string;
-  title: string;
-  messages: Message[];
-  createdAt: Date;
-  updatedAt: Date;
-}
+import Image from "next/image";
 
 interface SuggestedQuestion {
   title: string;
@@ -78,7 +63,7 @@ export default function Chat() {
       }
     };
     fetchSuggestedQuestions();
-  }, []);
+  }, [sessionId]);
 
   // Auto-scroll to bottom when messages change
   useEffect(() => {
@@ -102,7 +87,7 @@ export default function Chat() {
       setCurrentSessionTitle(session.title);
 
       // Extract userId from session id or create a new backend session if needed
-      let userId = session.id.split("-")[0] || "";
+      const userId = session.id.split("-")[0] || "";
 
       // For old sessions that don't have backend sessions, try to extract userId
       // or create a new backend session
@@ -307,10 +292,11 @@ export default function Chat() {
 
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                <img
+                <Image
                   src={process.env.NEXT_PUBLIC_LOGO_PATH || "/logo.svg"}
                   alt="Logo"
-                  className="w-5 h-5"
+                  width={20}
+                  height={20}
                 />
               </div>
               <div>

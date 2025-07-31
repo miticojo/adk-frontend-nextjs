@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
-
 const API_BASE_URL = "/api/chat";
 
 export interface Message {

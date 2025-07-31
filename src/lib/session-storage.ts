@@ -18,9 +18,9 @@ export class SessionStorage {
       const stored = localStorage.getItem(this.STORAGE_KEY);
       if (!stored) return [];
 
-      const sessions = JSON.parse(stored);
+      const sessions = JSON.parse(stored) as ChatSession[];
       return sessions
-        .map((session: any) => ({
+        .map((session) => ({
           ...session,
           createdAt: new Date(session.createdAt),
           updatedAt: new Date(session.updatedAt),

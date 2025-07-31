@@ -53,7 +53,6 @@ export function SessionSidebar({
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     loadSessions();

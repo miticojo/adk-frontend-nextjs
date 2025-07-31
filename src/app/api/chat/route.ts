@@ -4,6 +4,13 @@ import { v4 as uuidv4 } from "uuid";
 const API_BASE_URL = process.env.ADK_SERVER_ENDPOINT || "http://127.0.0.1:8000";
 const APP_NAME = process.env.ADK_APP_NAME || "ce_agent";
 
+interface AdkEvent {
+  author: string;
+  content: {
+    parts: { text: string }[];
+  };
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -63,9 +70,9 @@ export async function POST(req: NextRequest) {
 
     const assistantMessages = events
       .filter(
-        (e: any) => e.author === "ce_agent" && e.content?.parts?.[0]?.text
+        (e: AdkEvent) => e.author === "ce_agent" && e.content?.parts?.[0]?.text
       )
-      .map((e: any) => e.content.parts[0].text)
+      .map((e: AdkEvent) => e.content.parts[0].text)
       .join("");
 
     if (assistantMessages) {
@@ -82,7 +89,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const userId = uuidv4();
     const sessionId = uuidv4();
